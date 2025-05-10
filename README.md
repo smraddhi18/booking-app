@@ -37,7 +37,6 @@ To create a simple REST API backend that allows users to register, log in, view 
 1.  **Clone the repository:**
     ```bash
     git clone <your-repository-url>
-    cd meetx-booking-api
     ```
 
 2.  **Install dependencies:**
