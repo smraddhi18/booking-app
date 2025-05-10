@@ -11,8 +11,8 @@ To create a simple REST API backend that allows users to register, log in, view 
 *   User Registration (`POST /api/v1/auth/register`)
 *   User Login (`POST /api/v1/auth/login`) - Returns JWT Token
 *   List Activities (`GET /api/v1/activities`) - Public Endpoint
-*   Book an Activity (`POST /api/v1/bookings`) - Requires Authentication
-*   Get User Bookings (`GET /api/v1/bookings/my`) - Requires Authentication
+*   Book an Activity (`POST /api/v1/bookings/activity/:id`) - Requires Authentication
+*   Get User Bookings (`GET /api/v1/bookings/my-bookings`) - Requires Authentication
 
 ## Tech Stack
 
@@ -64,7 +64,7 @@ To create a simple REST API backend that allows users to register, log in, view 
 
 5.  The API should now be running on `http://localhost:<PORT>` (default is 5000).
 
-6.  **(Optional) Add Initial Activities:** You might need to manually add some initial activity documents to the `activities` collection in your MongoDB database for the `/api/v1/activities` endpoint to return data and for booking functionality testing.
+6.  **( Add Initial Activities:** You  need to manually add some initial activity documents to the `activities` collection in your MongoDB database for the `/api/v1/activities` endpoint to return data and for booking functionality testing.
 
 ## Security and Robustness Enhancements
 
@@ -87,8 +87,8 @@ All endpoints are prefixed with `/api/v1`.
 | `POST` | `/auth/register`   | Register a new user             | Public         | `{ "name": "...", "email": "...", "phone": "...", "password": "..." }` | `{ "_id": "...", "name": "...", "email": "...", "phone": "...", "token": "..." }` |
 | `POST` | `/auth/login`      | Log in user, get JWT token      | Public         | `{ "email": "...", "password": "..." }`          | `{ "_id": "...", "name": "...", "email": "...", "token": "..." }` |
 | `GET`  | `/activities`      | Get list of all activities      | Public         | None                                              | `[{ "id": "...", "title": "...", "description": "...", "location": "...", "date": "...", "time": "...", "category": "...", "price": ..., "capacity": ... }, ...]` |
-| `POST` | `/bookings`        | Book an activity                | **Private**    | `{ "activityId": "<activity_id_from_/activities>" }` | `{ "message": "Activity booked successfully", "booking": { ...booking details with populated activity... } }` |
-| `GET`  | `/bookings/my`     | Get bookings for logged-in user | **Private**    | None                                              | `[{ "_id": "...", "user": "...", "activity": { ...activity details... }, "bookingDate": "..." }, ...]` |
+| `POST` | `/bookings/activity/:activityId`        | Book an activity                | **Private**    | None | `{ "message": "Activity booked successfully", "booking": { ...booking details with populated activity... } }` |
+| `GET`  | `/bookings/my-bookings`     | Get bookings for logged-in user | **Private**    | None                                              | `[{ "_id": "...", "user": "...", "activity": { ...activity details... }, "bookingDate": "..." }, ...]` |
 
 **Authentication:** For private routes (`/api/v1/bookings`, `/api/v1/bookings/my`), include the JWT token obtained from `/api/v1/auth/login` in the `Authorization` header as `Bearer <token>`.
 
@@ -97,17 +97,12 @@ All endpoints are prefixed with `/api/v1`.
 
 A Postman collection is required for submission. You can create one with the endpoints listed above to test the API functionalities.
 
-*   Use the `/api/auth/login` response to get a token.
+*   Use the `/api/v1/auth/login` response to get a token.
 *   Store the token in a Postman environment or collection variable.
-*   Use this variable in the `Authorization` header (as `Bearer {{jwt_token}}`) for requests to `/api/bookings` and `/api/bookings/my`.
-*   For the admin endpoint, you will need a user with the 'admin' role to get a token that works.
+*   Use this variable in the `Authorization` header (as `Bearer {{jwt_token}}`) for requests to `/api/v1/bookings/activity/:activityId` and `/api/v1/bookings/my-bookings`.
 
 ## Postman Collection
 
-Please find the Postman Collection export file named `MeetX_Postman_Collection.json` in the root directory. Import this file into Postman to easily test all API endpoints.
-
-## Hosting (Optional)
-
-If you choose to host the API, provide the live URL here. Instructions for deploying to platforms like Render, Vercel, or Cyclic can be added if applicable.
+Please find the Postman Collection export file named `activity-booking-app.postman_collection.json` in the root directory. Import this file into Postman to easily test all API endpoints.
 
 ---
