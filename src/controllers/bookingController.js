@@ -11,15 +11,17 @@ const bookActivity = asyncHandler(async (req, res) => {
   const userId = req.user._id;
   
   const activity = await Activity.findOne({ 
-    _id: activityId,
-    dateTime: { $gt: Date.now() } 
-  }).select('title description location dateTime');  
-
-  console.log(`uh ther is not error`);
-
+    _id: activityId 
+  });
+  
   if (!activity) {
-    throw new AppError('Activity not found or already passed', 404);
+    throw new AppError('Activity not found', 404);
   }
+  
+  if (activity.dateTime <= new Date()) {
+    throw new AppError('Activity already passed', 400);
+  }
+  
 
   const existingBooking = await Booking.findOne({ user: userId, activity: activityId });
   if (existingBooking) {
