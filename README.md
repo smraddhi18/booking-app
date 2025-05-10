@@ -84,7 +84,7 @@ All endpoints are prefixed with `/api/v1`.
 | Method | Path               | Description                     | Authentication | Request Body Examples (JSON)                      | Response Examples (JSON)                               |
 | :----- | :----------------- | :------------------------------ | :------------- | :------------------------------------------------ | :----------------------------------------------------- |
 | `POST` | `/auth/register`   | Register a new user             | Public         | `{ "name": "...", "email": "...", "phone": "...", "password": "..." }` | `{ "_id": "...", "name": "...", "email": "...", "phone": "...", "token": "..." }` |
-| `POST` | `/auth/login`      | Log in user, get JWT token      | Public         | `{ "email": "...", "password": "..." }`          | `{ "_id": "...", "name": "...", "email": "...", "token": "..." }` |
+| `POST` | `/auth/login`      | Log in user, get JWT token      | Public         | `{ "email": "...", "password": "..." }`          | `{ "token": "..." }` |
 | `GET`  | `/activities`      | Get list of all activities      | Public         | None                                              | `[{ "id": "...", "title": "...", "description": "...", "location": "...", "dateTime": "..."}, ...]` |
 | `POST` | `/bookings/activity/:activityId`        | Book an activity                | **Private**    | None | `{ "message": "Activity booked successfully", "booking": { ...booking details with populated activity... } }` |
 | `GET`  | `/bookings/my-bookings`     | Get bookings for logged-in user | **Private**    | None                                              | `[{ "_id": "...", "user": "...", "activity": { ...activity details... }, "bookingDate": "..." }, ...]` |
