@@ -11,7 +11,7 @@ To create a simple REST API backend that allows users to register, log in, view 
 *   User Registration (`POST /api/v1/auth/register`)
 *   User Login (`POST /api/v1/auth/login`) - Returns JWT Token
 *   List Activities (`GET /api/v1/activities`) - Public Endpoint
-*   Book an Activity (`POST /api/v1/bookings/activity/:id`) - Requires Authentication
+*   Book an Activity (`POST /api/v1/bookings/activity/:activityId`) - Requires Authentication
 *   Get User Bookings (`GET /api/v1/bookings/my-bookings`) - Requires Authentication
 
 ## Tech Stack
