@@ -36,7 +36,7 @@ To create a simple REST API backend that allows users to register, log in, view 
 
 1.  **Clone the repository:**
     ```bash
-    git clone <your-repository-url>
+    git clone [https://github.com/smraddhi18/booking-app.git]
     ```
 
 2.  **Install dependencies:**
